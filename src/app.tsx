@@ -45,8 +45,8 @@ const decodeParam = (raw:string|null) => {
   }
 }
 
-// /api/og
-app.get('/api/og', async c => {
+// /og
+app.get('/og', async c => {
   const p = c.req.query('palette')
   const cp = c.req.query('custom-palette')
   console.log('Raw params:', { palette: p, customPalette: cp })
@@ -142,7 +142,7 @@ app.get('/share', c => {
               : custom ? `custom-palette=${encodeURIComponent(custom)}` : ''
   const target = `https://phantoml4rd.github.io/ffxiv-colorant-picker/${query?`?${query}`:''}`
   const host = c.req.header('host') || 'localhost'
-  const og = `https://${host}/api/og${query?`?${query}`:''}`
+  const og = `https://${host}/og${query?`?${query}`:''}`
 
   const html = `<!doctype html><html><head>
 <meta charset="utf-8"/>
