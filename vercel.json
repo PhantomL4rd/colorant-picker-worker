@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/[[...route]].ts": {
+      "runtime": "edge"
+    }
+  },
+  "routes": [
+    { "src": "/(.*)", "dest": "/api/$1" }
+  ]
+}
