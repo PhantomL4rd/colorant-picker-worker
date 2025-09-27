@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
 <meta property="og:image" content="${og}"/>
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="FFXIV Colorant Picker" />
+<meta name="twitter:title" content="FFXIV カララントピッカー" />
 <meta name="twitter:description" content="FF14のカララントの組み合わせを配色理論に基づいて提案するツール" />
 <meta name="twitter:image" content="${og}"/>
 <link rel="canonical" href="${target}"/>
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
 </body></html>`
 
   const isDev = host.includes('localhost') || host.includes('127.0.0.1')
-  const cacheControl = isDev ? 'no-cache' : 'public, max-age=31536000, immutable'
+  const cacheControl = isDev ? 'no-cache' : 'public, max-age=604800, immutable'
   
   return new NextResponse(html, {
     status: 200,

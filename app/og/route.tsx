@@ -63,6 +63,10 @@ export async function GET(request: NextRequest) {
     const paletteParam = searchParams.get('palette')
     const customParam = searchParams.get('custom-palette')
     
+    const host = request.headers.get('host') || 'localhost'
+    const isDev = host.includes('localhost') || host.includes('127.0.0.1')
+    const cacheControl = isDev ? 'no-cache' : 'public, max-age=604800, s-maxage=604800'
+    
     let colors = ['#ffffff', '#666666', '#000000']
     
     if (paletteParam || customParam) {
@@ -99,7 +103,7 @@ export async function GET(request: NextRequest) {
           }}
         >
           <div style={{
-            flex: '5',
+            flex: '3',
             backgroundColor: colors[0],
             display: 'flex',
             position: 'relative',
@@ -109,7 +113,7 @@ export async function GET(request: NextRequest) {
           </div>
           
           <div style={{
-            flex: '2.5',
+            flex: '2',
             backgroundColor: colors[1],
             display: 'flex',
             position: 'relative',
@@ -119,7 +123,7 @@ export async function GET(request: NextRequest) {
           </div>
           
           <div style={{
-            flex: '2',
+            flex: '1',
             backgroundColor: colors[2],
             display: 'flex',
             position: 'relative',
@@ -132,6 +136,9 @@ export async function GET(request: NextRequest) {
       {
         width: 800,
         height: 800,
+        headers: {
+          'Cache-Control': cacheControl,
+        },
       }
     )
   } catch (error) {
@@ -174,6 +181,9 @@ export async function GET(request: NextRequest) {
       {
         width: 800,
         height: 800,
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
       }
     )
   }
