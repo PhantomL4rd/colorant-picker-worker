@@ -20,6 +20,10 @@ build/
 # Vercel
 .vercel
 
+# Cloudflare Workers
+.wrangler/
+.dev.vars
+
 # IDE and editor files
 .vscode/
 .idea/
