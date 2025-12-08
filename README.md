@@ -8,7 +8,7 @@ FF14カララントピッカーのOGP画像生成ファサード
 
 ## 機能
 
-- **OGP画像生成** (`/og`) - 3色の縦グラデーション画像 (800x800)
+- **OGP画像生成** (`/og`) - 3色のカラーパレット画像 (1200x630)
 - **共有ページ** (`/share`) - OGPメタ付きHTMLで本体へリダイレクト
 
 ## URL形式
@@ -16,13 +16,13 @@ FF14カララントピッカーのOGP画像生成ファサード
 ### 通常パレット
 ```
 /share?palette=<LZString圧縮されたJSON>
-/api/og?palette=<LZString圧縮されたJSON>
+/og?palette=<LZString圧縮されたJSON>
 ```
 
-### カスタムパレット  
+### カスタムパレット
 ```
 /share?custom-palette=<LZString圧縮されたJSON>
-/api/og?custom-palette=<LZString圧縮されたJSON>
+/og?custom-palette=<LZString圧縮されたJSON>
 ```
 
 ## データ形式
@@ -31,7 +31,7 @@ FF14カララントピッカーのOGP画像生成ファサード
 ```json
 {
   "p": "dye_009",
-  "s": ["dye_059", "dye_113"], 
+  "s": ["dye_059", "dye_113"],
   "pt": "triadic"
 }
 ```
@@ -57,21 +57,21 @@ FF14カララントピッカーのOGP画像生成ファサード
 npm install
 
 # 開発サーバー起動
-vercel dev
+npm run dev
 ```
 
 ### デプロイ
 ```bash
-# Vercelにデプロイ
-vercel --prod
+# Cloudflare Workersにデプロイ
+npm run deploy
 ```
 
 ## 技術構成
 
 - **Hono** - Web フレームワーク
-- **Next.js ImageResponse** - OGP画像生成
+- **@cloudflare/pages-plugin-vercel-og** - OGP画像生成
 - **LZString** - URLパラメータ圧縮
-- **Vercel Edge Runtime** - サーバーレス実行環境
+- **Cloudflare Workers** - サーバーレス実行環境
 
 ## 外部依存
 
@@ -80,21 +80,17 @@ vercel --prod
 ## ファイル構成
 
 ```
-├── api/
-│   └── [[...route]].ts    # Vercel Edge adapter
 ├── src/
-│   └── app.tsx            # Honoアプリ本体
+│   └── index.tsx          # Honoアプリ本体
 ├── package.json
-├── vercel.json            # Vercel設定
-├── tsconfig.json          # TypeScript設定
-├── dev-server.js          # ローカル開発サーバー
-└── test.sh                # テストURL生成スクリプト
+├── wrangler.toml          # Cloudflare Workers設定
+└── tsconfig.json          # TypeScript設定
 ```
 
 ## OGP画像仕様
 
-- **サイズ**: 800x800 (正方形)
+- **サイズ**: 1200x630
 - **形式**: PNG
-- **デザイン**: 3色縦グラデーション
-- **比率**: メイン色 (5) : セカンダリ1 (2.5) : セカンダリ2 (1)
-- **キャッシュ**: 開発時は無効、本番では長期キャッシュ推奨
+- **デザイン**: 黄金比に基づく3色カラーパレット
+- **比率**: メイン色 (61.8%) : セカンダリ1 (23.6%) : セカンダリ2 (14.6%)
+- **キャッシュ**: 開発時は無効、本番では1週間キャッシュ
