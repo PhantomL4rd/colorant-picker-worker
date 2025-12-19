@@ -1,4 +1,4 @@
-# FFXIV Colorant Picker OGP Proxy
+# Colorant Picker Worker
 
 FF14カララントピッカーのOGP画像生成ファサード
 
@@ -13,21 +13,24 @@ FF14カララントピッカーのOGP画像生成ファサード
 
 ## URL形式
 
-### 通常パレット
 ```
-/share?palette=<LZString圧縮されたJSON>
-/og?palette=<LZString圧縮されたJSON>
+/share/<LZString圧縮されたJSON>
+/og/<LZString圧縮されたJSON>
 ```
 
-### カスタムパレット
-```
-/share?custom-palette=<LZString圧縮されたJSON>
-/og?custom-palette=<LZString圧縮されたJSON>
-```
+パスの末尾にLZString圧縮されたJSONデータを直接配置します。
 
 ## データ形式
 
-### 通常パレット
+LZString圧縮前のJSONデータ形式。プライマリ色 (`p`) はカララントIDまたはカスタムカラーオブジェクトを指定できます。
+
+| フィールド | 説明 |
+|-----------|------|
+| `p` | プライマリ色（カララントIDまたはカスタムカラーオブジェクト） |
+| `s` | セカンダリ色の配列（カララントID） |
+| `pt` | パレットタイプ（triadic, analogous など） |
+
+### 通常パレット（カララントID指定）
 ```json
 {
   "p": "dye_009",
@@ -36,7 +39,7 @@ FF14カララントピッカーのOGP画像生成ファサード
 }
 ```
 
-### カスタムパレット
+### カスタムパレット（RGB直接指定）
 ```json
 {
   "p": {
@@ -75,7 +78,7 @@ npm run deploy
 
 ## 外部依存
 
-- `https://phantoml4rd.github.io/ffxiv-colorant-picker/data/dyes.json` - 色データカタログ
+- `https://colorant-picker.pl4rd.com/data/dyes.json` - 色データカタログ
 
 ## ファイル構成
 
