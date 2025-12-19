@@ -198,14 +198,14 @@ const generateOgImage = (colors: string[], cacheControl: string) => {
 const generateShareHtml = (ogImageUrl: string, targetUrl: string) => {
   return `<!doctype html><html><head>
 <meta charset="utf-8"/>
-<title>FFXIV Colorant Picker</title>
-<meta property="og:title" content="FFXIV Colorant Picker" />
+<title>カララントピッカー</title>
+<meta property="og:title" content="カララントピッカー" />
 <meta property="og:description" content="FF14のカララントの組み合わせを配色理論に基づいて提案するツール" />
-<meta property="og:site_name" content="FF14 カララントピッカー" />
+<meta property="og:site_name" content="カララントピッカー" />
 <meta property="og:image" content="${ogImageUrl}"/>
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="FFXIV カララントピッカー" />
+<meta name="twitter:title" content="カララントピッカー" />
 <meta name="twitter:description" content="FF14のカララントの組み合わせを配色理論に基づいて提案するツール" />
 <meta name="twitter:image" content="${ogImageUrl}"/>
 <link rel="canonical" href="${targetUrl}"/>
