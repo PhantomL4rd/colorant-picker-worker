@@ -1,5 +1,5 @@
 {
-  "name": "ffxiv-colorant-picker-ogp-proxy",
+  "name": "colorant-picker-worker",
   "private": true,
   "type": "module",
   "scripts": {
