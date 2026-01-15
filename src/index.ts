@@ -38,7 +38,7 @@ app.get('/share/:data', (c) => {
   const cacheControl = c.get('cacheControl').html
 
   const ogImageUrl = `${protocol}://${host}/og/${compressedData}`
-  const targetUrl = `${APP_BASE_URL}/share/${compressedData}`
+  const targetUrl = `${APP_BASE_URL}/?palette=${compressedData}`
 
   return c.html(generateShareHtml(ogImageUrl, targetUrl), 200, {
     'Cache-Control': cacheControl,
