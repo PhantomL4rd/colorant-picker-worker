@@ -27,18 +27,30 @@ app.get('/og/:data', async (c) => {
   }
 })
 
+// SNSクローラーのUser-Agent判定
+const CRAWLER_PATTERNS = /Twitterbot|facebookexternalhit|Discordbot|Slackbot|LinkedInBot|LINE|Iframely/i
+
 /**
  * シェアページ（OGPメタタグ付きHTML）
  * GET /share/:data
+ * - クローラー: OGP付きHTMLを返す
+ * - ユーザー: 即座にリダイレクト
  */
 app.get('/share/:data', (c) => {
   const compressedData = c.req.param('data')
+  const targetUrl = `${APP_BASE_URL}/?palette=${compressedData}`
+
+  // クローラーでなければ即座にリダイレクト
+  const userAgent = c.req.header('user-agent') || ''
+  if (!CRAWLER_PATTERNS.test(userAgent)) {
+    return c.redirect(targetUrl, 302)
+  }
+
+  // クローラー向けにOGP付きHTMLを返す
   const host = c.req.header('host') || 'localhost'
   const protocol = c.get('protocol')
   const cacheControl = c.get('cacheControl').html
-
   const ogImageUrl = `${protocol}://${host}/og/${compressedData}`
-  const targetUrl = `${APP_BASE_URL}/?palette=${compressedData}`
 
   return c.html(generateShareHtml(ogImageUrl, targetUrl), 200, {
     'Cache-Control': cacheControl,
